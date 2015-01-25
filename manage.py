@@ -19,7 +19,7 @@ def seed():
 
     for i in range(25):
         post = Post(
-            title="Test Post #{}".format(i),
+            title="Test Post #{}".format(i+1), # Add 1 so first post is 1.
             content=content
         )
         session.add(post)

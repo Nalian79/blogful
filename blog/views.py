@@ -8,7 +8,7 @@ from models import Post
 
 @app.route("/")
 @app.route("/page/<int:page>")
-def posts(page=1, paginate_by=10):
+def posts(page=1, paginate_by=5):
     # Zero-indexed page
     page_index = page - 1
 
@@ -50,10 +50,25 @@ def add_post_post():
     return redirect(url_for("posts"))
 
 
-@app.route("/post/<int:id>", methods=["GET"])
-def get_specific_post(id):
-    post = session.query(Post).filter(Post.id == id).all()
-    return render_template("posts.html", posts=post)
+@app.route("/post/<int:post_id>", methods=["GET"])
+def get_specific_post(post_id):
+    post = session.query(Post)
+    post = post.get(post_id)
+    total_posts = session.query(Post).count()
+    # Set some initial variables
+    # talk to mentor about doing this better!
+    has_next = 0
+    has_prev = 0
+    # If this isn't the last post, set has_next to the next post_id
+    if post_id < total_posts:
+        has_next = post_id + 1
+    # If this isn't the first post, set has_prev to the previous post_id
+    if post_id >= 1:
+        has_prev = post_id -1
+
+    return render_template("one_post.html", post=post,
+                           has_next=has_next,
+                           has_prev=has_prev)
 
 
 @app.route("/post/<int:post_id>/edit", methods=["GET"])
@@ -74,5 +89,19 @@ def post_edit(post_id):
     session.query(Post).filter(Post.id == post_id).update(
         {"title":title, "content":content} )
     session.commit()
-    # return to the posts.
-    return redirect(url_for("posts"))
+    # return to the post you edited.
+    # Set some initial variables
+    # talk to mentor about doing this better!
+    total_posts = session.query(Post).count()
+    has_next = 0
+    has_prev = 0
+    # If this isn't the last post, set has_next to the next post_id
+    if post_id < total_posts:
+        has_next = post_id + 1
+    # If this isn't the first post, set has_prev to the previous post_id
+    if post_id >= 1:
+        has_prev = post_id -1
+
+    return render_template("one_post.html", post=post,
+                           has_next=has_next,
+                           has_prev=has_prev)

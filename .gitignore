@@ -1,0 +1,5 @@
+.startup
+env
+*.pyc
+*.html~
+#*#
