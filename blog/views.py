@@ -38,6 +38,7 @@ def posts(page=1, paginate_by=10):
 def add_post_get():
     return render_template("add_post.html")
 
+
 @app.route("/post/add", methods=["POST"])
 def add_post_post():
     post = Post(
@@ -47,3 +48,9 @@ def add_post_post():
     session.add(post)
     session.commit()
     return redirect(url_for("posts"))
+
+
+@app.route("/post/<int:id>", methods=["GET"])
+def get_specific_post(id):
+    post = session.query(Post).filter(Post.id == id).all()
+    return render_template("posts.html", posts=post)
