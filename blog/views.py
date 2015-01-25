@@ -105,3 +105,20 @@ def post_edit(post_id):
     return render_template("one_post.html", post=post,
                            has_next=has_next,
                            has_prev=has_prev)
+
+
+@app.route("/post/<int:post_id>/delete", methods=["GET"])
+def show_post_for_delete(post_id):
+    post = session.query(Post)
+    post = post.get(post_id)
+    return render_template("delete_post.html", post=post)
+
+
+@app.route("/post/<int:post_id>/delete", methods=["POST"])
+def delete_post(post_id):
+    post = session.query(Post)
+    post = post.get(post_id)
+    session.query(Post).filter(Post.id == post_id).delete()
+    session.commit()
+    return redirect(url_for("posts"))
+
