@@ -54,3 +54,25 @@ def add_post_post():
 def get_specific_post(id):
     post = session.query(Post).filter(Post.id == id).all()
     return render_template("posts.html", posts=post)
+
+
+@app.route("/post/<int:post_id>/edit", methods=["GET"])
+def edit_post(post_id):
+    post = session.query(Post)
+    post = post.get(post_id)
+    return render_template("edit_post.html", post=post)
+
+@app.route("/post/<int:post_id>/edit", methods=["POST"])
+def post_edit(post_id):
+    # Get the post for the current post ID
+    post = session.query(Post)
+    post = post.get(post_id)
+    # Get the title and content from the post
+    title=request.form["title"]
+    content=request.form["content"]
+    # Update the post - create new session obj
+    session.query(Post).filter(Post.id == post_id).update(
+        {"title":title, "content":content} )
+    session.commit()
+    # return to the posts.
+    return redirect(url_for("posts"))
