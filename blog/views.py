@@ -1,7 +1,7 @@
 import mistune
 
 from flask import flash, render_template, request, redirect, url_for
-from flask.ext.login import login_user
+from flask.ext.login import login_user, login_required
 from werkzeug.security import check_password_hash
 
 from blog import app
@@ -116,22 +116,24 @@ def post_edit(post_id):
 # Talk to mentor about rendering something more like posts.html
 # instead of a form.  Ask about resources for jinja/flask, too.
 
-@app.route("/post/<int:post_id>/delete", methods=["GET"])
+@app.route("/post/<int:post_id>/delete", methods=["GET", "POST"])
 @login_required
 def show_post_for_delete(post_id):
     post = session.query(Post)
     post = post.get(post_id)
+    session.query(Post).filter(Post.id == post_id).delete()
+    session.commit()
     return render_template("delete_post.html", post=post)
 
 
-@app.route("/post/<int:post_id>/delete", methods=["POST"])
-@login_required
-def delete_post(post_id):
-    post = session.query(Post)
-    post = post.get(post_id)
-    session.query(Post).filter(Post.id == post_id).delete()
-    session.commit()
-    return redirect(url_for("posts"))
+#@app.route("/post/<int:post_id>/delete", methods=["POST"])
+#@login_required
+#def delete_post(post_id):
+#    post = session.query(Post)
+#    post = post.get(post_id)
+#    session.query(Post).filter(Post.id == post_id).delete()
+#    session.commit()
+#    return redirect(url_for("posts"))
 
 
 @app.route("/login", methods=["GET"])
