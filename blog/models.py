@@ -28,6 +28,9 @@ class User(Base, UserMixin):
     def is_authenticated(self):
         return True
 
+    def get_id(self):
+        return unicode(self.id)
+
     def __repre__(self):
         return '<User %r>' % (self.name)
 
