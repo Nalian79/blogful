@@ -62,8 +62,8 @@ def get_specific_post(post_id):
     total_posts = session.query(Post).count()
     # Set some initial variables
     # talk to mentor about doing this better!
-    has_next = 0
-    has_prev = 0
+    has_next = None
+    has_prev = None
     # If this isn't the last post, set has_next to the next post_id
     if post_id < total_posts:
         has_next = post_id + 1
@@ -98,10 +98,9 @@ def post_edit(post_id):
     session.commit()
     # return to the post you edited.
     # Set some initial variables
-    # talk to mentor about doing this better!
     total_posts = session.query(Post).count()
-    has_next = 0
-    has_prev = 0
+    has_next = None
+    has_prev = None
     # If this isn't the last post, set has_next to the next post_id
     if post_id < total_posts:
         has_next = post_id + 1
@@ -113,9 +112,6 @@ def post_edit(post_id):
                            has_next=has_next,
                            has_prev=has_prev)
 
-
-# Talk to mentor about rendering something more like posts.html
-# instead of a form.  Ask about resources for jinja/flask, too.
 
 @app.route("/post/<int:post_id>/delete", methods=["GET", "POST"])
 @login_required

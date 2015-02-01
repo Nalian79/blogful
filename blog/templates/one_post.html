@@ -5,12 +5,12 @@
 {{ macros.render_post(post) }}
 
 <ul class="pager">
-    {% if has_prev != 0 %}
+    {% if has_prev is not none %}
     <li class="previous" >
     <a href="/post/{{ post.id - 1 }}">&larr; Older</a>
     </li>
     {% endif %}
-    {% if has_next != 0 %}
+    {% if has_next is not none %}
     <li class="next">
     <a href="/post/{{ post.id + 1 }}">&rarr; Newer</a>
     </li>

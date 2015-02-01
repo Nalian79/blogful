@@ -15,7 +15,7 @@
           <p>Created By {{ post.author.name }}</p>
         </div>
 
-        {{ post.content | safe }}
+        {{ post.content | display_markdown | safe }}
         <div>
           <a href="/post/{{ post.id }}/edit">Edit Post</a>
           <a href="/post/{{ post.id }}/delete">Delete Post</a>
