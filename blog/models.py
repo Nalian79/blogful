@@ -25,4 +25,10 @@ class User(Base, UserMixin):
     password = Column(String(128))
     posts = relationship("Post", backref="author")
 
+    def is_authenticated(self):
+        return True
+
+    def __repre__(self):
+        return '<User %r>' % (self.name)
+
 Base.metadata.create_all(engine)
