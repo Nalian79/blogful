@@ -11,6 +11,10 @@
         <h1>
           <a href="/post/{{ post.id }}">{{ post.title }}</a>
         </h1>
+        <div>
+          <p>Created By {{ post.author.name }}</p>
+        </div>
+
         {{ post.content | safe }}
         <div>
           <a href="/post/{{ post.id }}/edit">Edit Post</a>

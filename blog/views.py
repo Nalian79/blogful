@@ -1,7 +1,7 @@
 import mistune
 
 from flask import flash, render_template, request, redirect, url_for
-from flask.ext.login import login_user, login_required
+from flask.ext.login import login_user, login_required, current_user
 from werkzeug.security import check_password_hash
 
 from blog import app
@@ -48,6 +48,7 @@ def add_post_post():
     post = Post(
         title=request.form["title"],
         content=mistune.markdown(request.form["content"]),
+        author=current_user
     )
     session.add(post)
     session.commit()
