@@ -5,6 +5,6 @@ install: pip install -r requirements.txt
 before_script:
     - psql -c 'create database travis_ci_test;' -U postgres
 script:
-    - PYTHONPATH=. python tests/test_filters.py
+    - PYTHONPATH=. python tests/test_filter.py
     - PYTHONPATH=. python tests/test_views_integration.py
     - PYTHONPATH=. python tests/test_views_acceptance.py
