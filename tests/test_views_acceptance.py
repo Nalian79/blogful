@@ -37,9 +37,10 @@ class TestViews(unittest.TestCase):
         # Remove the tables and the data from the DB
 
         self.process.terminate()
+        self.browser.quit()
         session.close()
         Base.metadata.drop_all(engine)
-        self.browser.quit()
+#        self.browser.quit()
 
     def testLoginCorrect(self):
         self.browser.visit("http://127.0.0.1:5000/login")
