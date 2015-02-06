@@ -18,7 +18,8 @@ class TestViews(unittest.TestCase):
         """ Test setup """
         self.browser = Browser("phantomjs")
 
-        # Set up tables in the db
+        # Drop DB if exists, Set up tables in the db
+        Base.metadata.drop_all(engine)
         Base.metadata.create_all(engine)
 
         # Create an example user
