@@ -3,6 +3,8 @@ python:
     - "2.7"
 env:
     SECRET_KEY="Not secret"
+    DATABASE_URL="postgresql://postgres@localhost/blogful_test"
+    TEST_DATABASE_URL="postgresql://postgres@localhost/blogful_test"
 install: pip install -r requirements.txt
 addons:
     postgresql: "9.2"

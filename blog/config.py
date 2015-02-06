@@ -8,6 +8,6 @@ class DevelopmentConfig(object):
 
 class TestingConfig(object):
 #    SQLALCHEMY_DATABASE_URI = "postgresql://action:action@localhost:5432/blogful-test"
-    SQLALCHEMY_DATABASE_URI = "postgresql://postgres:postgres@localhost:5432/blogful_test"
+    SQLALCHEMY_DATABASE_URI = "postgresql://postgres:@localhost:5432/blogful_test"
     DEBUG = False
     SECRET_KEY = "Not secret"
