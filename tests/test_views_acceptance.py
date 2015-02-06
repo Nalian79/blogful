@@ -27,7 +27,6 @@ class TestViews(unittest.TestCase):
 
         session.add(self.user)
         session.commit()
-        session.close()
 
         self.process = multiprocessing.Process(target=app.run)
         self.process.start()
@@ -38,7 +37,7 @@ class TestViews(unittest.TestCase):
         # Remove the tables and the data from the DB
 
         self.process.terminate()
-#        session.close()
+        session.close()
         Base.metadata.drop_all(engine)
         self.browser.quit()
 
