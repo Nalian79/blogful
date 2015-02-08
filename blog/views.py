@@ -123,16 +123,6 @@ def show_post_for_delete(post_id):
     return render_template("delete_post.html", post=post)
 
 
-#@app.route("/post/<int:post_id>/delete", methods=["POST"])
-#@login_required
-#def delete_post(post_id):
-#    post = session.query(Post)
-#    post = post.get(post_id)
-#    session.query(Post).filter(Post.id == post_id).delete()
-#    session.commit()
-#    return redirect(url_for("posts"))
-
-
 @app.route("/login", methods=["GET"])
 def login_get():
     return render_template("login.html")
@@ -147,6 +137,7 @@ def login_post():
         return redirect(url_for("login_get"))
 
     login_user(user)
+    session.close()
     return redirect(request.args.get('next') or url_for("posts"))
 
 @app.route("/logout", methods=["GET"])
