@@ -8,6 +8,17 @@ from blog import app
 from database import session
 from models import Post, User
 
+
+@app.before_request
+def before_request():
+    session.engine.dispose()
+
+
+@app.after_request
+def after_request():
+    session.engine.dispose()
+
+
 @app.route("/")
 @app.route("/page/<int:page>")
 def posts(page=1, paginate_by=5):
