@@ -1,7 +1,6 @@
 import os
 
 from flask import Flask
-from database import session
 
 # ask mentor why this has to come before the below imports.
 app = Flask(__name__)
