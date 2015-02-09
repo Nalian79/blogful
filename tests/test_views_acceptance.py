@@ -38,6 +38,7 @@ class TestViews(unittest.TestCase):
         # Remove the tables and the data from the DB
 
         self.process.terminate()
+        engine.dispose()
         session.close()
         Base.metadata.drop_all(engine)
         self.browser.quit()
